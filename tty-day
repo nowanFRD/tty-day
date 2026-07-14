@@ -3,8 +3,8 @@
 COLOR_CODE="\e[1;33m"
 
 show_help() {
-    echo "Использование: tty-day [-C цвет]"
-    echo "Доступные цвета: yellow, magenta, cyan, green, red, blue, black, white"
+    echo "use: tty-day [-C color]"
+    echo "colors: yellow, magenta, cyan, green, red, blue, black, white"
     exit 0
 }
 
