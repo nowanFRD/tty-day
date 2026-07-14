@@ -1,9 +1,35 @@
 #!/bin/bash
 
+COLOR_CODE="\e[1;33m"
+
+show_help() {
+    echo "Использование: tty-day [-C цвет]"
+    echo "Доступные цвета: yellow, magenta, cyan, green, red, blue, black, white"
+    exit 0
+}
+
+while getopts "C:h" opt; do
+    case ${opt} in
+        C )
+            case ${OPTARG} in
+                yellow)  COLOR_CODE="\e[1;33m" ;;
+                magenta) COLOR_CODE="\e[1;35m" ;;
+                cyan)    COLOR_CODE="\e[1;36m" ;;
+                green)   COLOR_CODE="\e[1;32m" ;;
+                red)     COLOR_CODE="\e[1;31m" ;;
+                blue)    COLOR_CODE="\e[1;34m" ;;
+                black)   COLOR_CODE="\e[1;30m" ;;
+                white)   COLOR_CODE="\e[1;37m" ;;
+                *) echo "error: unknown color '${OPTARG}'"; show_help ;;
+            esac
+            ;;
+        h | * ) show_help ;;
+    esac
+done
+
 trap 'echo -ne "\e[?25h\e[0m"; clear; exec bash --login' SIGINT
 
 echo -ne "\e[?25l"
-
 echo -ne "\033]0;TTY-DAY\007"
 
 while true; do
@@ -22,7 +48,7 @@ while true; do
         echo -ne "\e[K\n"
     done
     
-    echo -ne "\e[1;33m"
+    echo -ne "${COLOR_CODE}"
     echo "$ASCII_ART" | while IFS= read -r line; do
         printf "\e[K%*s\n" $(( (COLS + ${#line}) / 2 )) "$line"
     done
