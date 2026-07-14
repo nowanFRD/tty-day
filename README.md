@@ -9,3 +9,5 @@
    sudo chmod +x /usr/local/bin/tty-day'''
 			HOW TO START
 -tty-day
+			UPDATE
+to change the color use -C example tty-clock -C magenta
