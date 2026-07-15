@@ -1,8 +1,8 @@
 #!/bin/bash
 
 if ! command -v figlet &> /dev/null; then
-    echo "Ошибка: figlet не установлен."
-    echo "Установите его: sudo apt install figlet (Debian/Ubuntu) или sudo pacman -S figlet (Arch)"
+    echo "Error figlet haven't installed."
+    echo "Download it: sudo apt install figlet (Debian/Ubuntu) or sudo pacman -S figlet (Arch)"
     exit 1
 fi
 
