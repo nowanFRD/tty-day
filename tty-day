@@ -1,5 +1,11 @@
 #!/bin/bash
 
+if ! command -v figlet &> /dev/null; then
+    echo "Ошибка: figlet не установлен."
+    echo "Установите его: sudo apt install figlet (Debian/Ubuntu) или sudo pacman -S figlet (Arch)"
+    exit 1
+fi
+
 COLOR_CODE="\e[1;33m"
 
 show_help() {
@@ -27,10 +33,12 @@ while getopts "C:h" opt; do
     esac
 done
 
-trap 'echo -ne "\e[?25h\e[0m"; clear; exec bash --login' SIGINT
+trap 'echo -ne "\e[?25h\e[0m"; clear; exit 0' SIGINT
 
 echo -ne "\e[?25l"
 echo -ne "\033]0;TTY-DAY\007"
+
+clear
 
 while true; do
     echo -ne "\e[H"
@@ -54,11 +62,7 @@ while true; do
     done
     echo -ne "\e[0m"
     
-    CURRENT_ROW=$(( PADDING_TOP + ART_HEIGHT ))
-    for ((i=CURRENT_ROW; i<ROWS; i++)); do
-        echo -ne "\e[K\n"
-    done
+    echo -ne "\e[J"
     
     sleep 1
 done
-
